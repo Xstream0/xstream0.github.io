@@ -11,6 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeForm();
     initializeSkillBars();
     initializeThemeToggle();
+    
+    // Traccia il caricamento della pagina
+    if (window.mixpanel) {
+        mixpanel.track('Page Load', {
+            page: document.title,
+            url: window.location.href
+        });
+    }
 });
 
 
@@ -34,6 +42,14 @@ function initializeNavigation() {
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
+                });
+            }
+            
+            // Traccia i clic sui link di navigazione
+            if (window.mixpanel) {
+                mixpanel.track('Navigation Click', {
+                    section: this.getAttribute('href'),
+                    text: this.textContent
                 });
             }
         });
@@ -176,6 +192,13 @@ function handleFormSubmit(e) {
     }
     
     simulateFormSubmission(data);
+    
+    // Traccia l'invio del form
+    if (window.mixpanel) {
+        mixpanel.track('Form Submitted', {
+            service: document.querySelector('#service').value
+        });
+    }
 }
 
 function validateForm(data) {

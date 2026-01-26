@@ -13,8 +13,8 @@
       e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=e.getElementsByTagName("script")[0];e.parentNode.insertBefore(k,e)}})(document,window.mixpanel||[])
       
       mixpanel.init('b05f7b0ce88a3fe9153d3328cbab12f3', {
-        autocapture: false,
-        record_sessions_percent: 10,
+        autocapture: true,
+        record_sessions_percent: 5,
         api_host: 'https://api-eu.mixpanel.com',
       })
     </script>
