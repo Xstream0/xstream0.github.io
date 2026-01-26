@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^5.4.2"
+  },
+  "dependencies": {
+    "mixpanel-browser": "^2.73.0"
   }
 }
