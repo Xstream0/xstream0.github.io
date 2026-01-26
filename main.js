@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSkillBars();
     initializeThemeToggle();
     
-    // Traccia il caricamento della pagina
     if (window.mixpanel) {
         mixpanel.track('Page Load', {
             page: document.title,
