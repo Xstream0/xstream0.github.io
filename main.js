@@ -3,6 +3,15 @@ const navToggle = document.getElementById('nav-toggle');
 const header = document.querySelector('.header');
 const contactForm = document.getElementById('contact-form');
 
+if (contactForm) {
+  contactForm.addEventListener('submit', () => {
+    if (window.mixpanel) {
+      mixpanel.track('Form Submitted', {
+        service: document.querySelector('#service')?.value || 'unknown'
+      });
+    }
+  });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
@@ -12,14 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSkillBars();
     initializeThemeToggle();
     
-    if (window.mixpanel) {
-        mixpanel.track('Page Load', {
-            page: document.title,
-            url: window.location.href
-        });
-    }
+mixpanel.track('Page View', {
+  page: document.title,
+  url: window.location.href
 });
-
+});
 
 function initializeNavigation() {
     navToggle?.addEventListener('click', toggleMobileMenu);
@@ -44,7 +50,6 @@ function initializeNavigation() {
                 });
             }
             
-            // Traccia i clic sui link di navigazione
             if (window.mixpanel) {
                 mixpanel.track('Navigation Click', {
                     section: this.getAttribute('href'),
@@ -192,7 +197,6 @@ function handleFormSubmit(e) {
     
     simulateFormSubmission(data);
     
-    // Traccia l'invio del form
     if (window.mixpanel) {
         mixpanel.track('Form Submitted', {
             service: document.querySelector('#service').value
