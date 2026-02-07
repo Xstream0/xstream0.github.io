@@ -20,10 +20,12 @@ mixpanel.init('b05f7b0ce88a3fe9153d3328cbab12f3', {
 });
 
     </script>
-    <script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
   const uid = localStorage.getItem('mp_uid') || crypto.randomUUID();
   localStorage.setItem('mp_uid', uid);
   mixpanel.identify(uid);
+});
 </script>
 
 </head>

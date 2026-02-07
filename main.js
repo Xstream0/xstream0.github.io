@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSkillBars();
     initializeThemeToggle();
     
-mixpanel.track('Page View', {
-  page: document.title,
+mixpanel.track('$pageview', {
+  page_title: document.title,
   url: window.location.href
 });
 });
