@@ -3,15 +3,6 @@ const navToggle = document.getElementById('nav-toggle');
 const header = document.querySelector('.header');
 const contactForm = document.getElementById('contact-form');
 
-if (contactForm) {
-  contactForm.addEventListener('submit', () => {
-    if (window.mixpanel) {
-      mixpanel.track('Form Submitted', {
-        service: document.querySelector('#service')?.value || 'unknown'
-      });
-    }
-  });
-}
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
@@ -20,12 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeForm();
     initializeSkillBars();
     initializeThemeToggle();
-    
-mixpanel.track('$pageview', {
-  page_title: document.title,
-  url: window.location.href
 });
-});
+
 
 function initializeNavigation() {
     navToggle?.addEventListener('click', toggleMobileMenu);
@@ -47,13 +34,6 @@ function initializeNavigation() {
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
-                });
-            }
-            
-            if (window.mixpanel) {
-                mixpanel.track('Navigation Click', {
-                    section: this.getAttribute('href'),
-                    text: this.textContent
                 });
             }
         });
@@ -196,12 +176,6 @@ function handleFormSubmit(e) {
     }
     
     simulateFormSubmission(data);
-    
-    if (window.mixpanel) {
-        mixpanel.track('Form Submitted', {
-            service: document.querySelector('#service').value
-        });
-    }
 }
 
 function validateForm(data) {

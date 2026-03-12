@@ -1,0 +1,115 @@
+```html
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Messaggio inviato - Xstream</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#0f172a,#020617);
+color:white;
+text-align:center;
+}
+
+.container{
+max-width:500px;
+padding:40px;
+background:rgba(255,255,255,0.03);
+border-radius:16px;
+backdrop-filter:blur(10px);
+box-shadow:0 20px 60px rgba(0,0,0,0.4);
+animation:fadeIn 1s ease;
+}
+
+.icon{
+font-size:60px;
+margin-bottom:20px;
+animation:pop 0.6s ease;
+}
+
+h1{
+font-size:28px;
+margin-bottom:10px;
+}
+
+p{
+color:#cbd5f5;
+margin-bottom:30px;
+line-height:1.5;
+}
+
+.btn{
+display:inline-block;
+padding:12px 28px;
+background:#2563eb;
+color:white;
+text-decoration:none;
+border-radius:8px;
+font-weight:600;
+transition:0.3s;
+}
+
+.btn:hover{
+background:#1d4ed8;
+transform:translateY(-2px);
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@keyframes pop{
+from{
+transform:scale(0.5);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="icon">✅</div>
+
+<h1>Messaggio inviato!</h1>
+
+<p>
+Grazie per avermi contattato.  
+Ho ricevuto il tuo messaggio e ti risponderò il prima possibile.
+</p>
+
+<a href="/" class="btn">Torna al sito</a>
+
+</div>
+
+</body>
+</html>
+```
