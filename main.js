@@ -363,43 +363,67 @@ if ('performance' in window && 'PerformanceObserver' in window) {
     observer.observe({ entryTypes: ['measure'] });
 }
 
-window.addEventListener('load', function() {
+function dismissPreloader() {
+    const preloader = document.querySelector('.preloader');
+    const siteContent = document.querySelector('.site-content');
+
+    if (!preloader || preloader.dataset.dismissed) return;
+    preloader.dataset.dismissed = 'true';
+
+    siteContent.style.opacity = '1';
+    siteContent.style.transform = 'translateY(0)';
+
     setTimeout(() => {
-        const preloader = document.querySelector('.preloader');
-        const loader = document.querySelector('.loader');
-        const loaderText = document.querySelector('.loader-text');
-        const siteContent = document.querySelector('.site-content');
-        
+        preloader.style.display = 'none';
+        document.body.style.overflow = 'auto';
+
+        const elements = document.querySelectorAll('.hero__title, .hero__subtitle, .hero__buttons, .hero__code');
+        elements.forEach((el, index) => {
+            el.classList.add('stagger-animation');
+            el.style.animationDelay = `${index * 0.2}s`;
+        });
+    }, 800);
+}
+
+window.addEventListener('load', function() {
+    const preloader = document.querySelector('.preloader');
+    const loader = document.querySelector('.loader');
+    const loaderText = document.querySelector('.loader-text');
+    const siteContent = document.querySelector('.site-content');
+
+    const safetyTimeout = setTimeout(() => {
+        dismissPreloader();
+    }, 5000);
+
+    setTimeout(() => {
         loader.style.display = 'none';
         loaderText.style.display = 'none';
-        
+
         const logoReveal = document.createElement('img');
-        logoReveal.src = 'Logo fatto da dexh-cerchio.png';
+        logoReveal.src = 'img/logo.png';
         logoReveal.classList.add('logo-reveal');
+        logoReveal.loading = 'eager';
+        logoReveal.decoding = 'sync';
         preloader.appendChild(logoReveal);
-        
-        setTimeout(() => {
-            logoReveal.classList.add('active');
-            
-            setTimeout(() => {
-                logoReveal.classList.add('zoom-out');
-                
-                siteContent.style.opacity = '1';
-                siteContent.style.transform = 'translateY(0)';
-                
+
+        logoReveal.onload = () => {
+            // Preload completato, avvia animazione
+            requestAnimationFrame(() => {
+                logoReveal.classList.add('active');
+
                 setTimeout(() => {
-                    preloader.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                    
-                    const elements = document.querySelectorAll('.hero__title, .hero__subtitle, .hero__buttons, .hero__code');
-                    elements.forEach((el, index) => {
-                        el.classList.add('stagger-animation');
-                        el.style.animationDelay = `${index * 0.2}s`;
-                    });
-                }, 800);
-            }, 1500);
-        }, 100);
-    }, 2000);
+                    logoReveal.classList.add('zoom-out');
+                    clearTimeout(safetyTimeout);
+                    dismissPreloader();
+                }, 1500);
+            });
+        };
+
+        logoReveal.onerror = () => {
+            clearTimeout(safetyTimeout);
+            dismissPreloader();
+        };
+    }, 1500); 
 });
 
 function initializeThemeToggle() {
