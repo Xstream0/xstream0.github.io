@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeForm();
     initializeSkillBars();
     initializeThemeToggle();
+    initializeCustomCursor();
 });
 
 
@@ -444,4 +445,59 @@ function initializeThemeToggle() {
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
     });
+}
+
+function initializeCustomCursor() {
+    const cursor = document.querySelector('.cursor');
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function updateCursor() {
+        const dx = mouseX - cursorX;
+        const dy = mouseY - cursorY;
+        
+        cursorX += dx * 0.15;
+        cursorY += dy * 0.15;
+        
+        cursor.style.left = `${cursorX}px`;
+        cursor.style.top = `${cursorY}px`;
+        
+        requestAnimationFrame(updateCursor);
+    }
+    
+    updateCursor();
+
+    // Hover effects
+    const hoverElements = document.querySelectorAll('a, button, .btn, .nav__link, .service__card, .portfolio__item, .form__input');
+    
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.add('hover');
+        });
+        
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hover');
+        });
+    });
+
+    // Click effects
+    document.addEventListener('mousedown', () => {
+        cursor.classList.add('click');
+    });
+    
+    document.addEventListener('mouseup', () => {
+        cursor.classList.remove('click');
+    });
+
+    // Hide cursor on mobile
+    if ('ontouchstart' in window) {
+        cursor.style.display = 'none';
+    }
 }
