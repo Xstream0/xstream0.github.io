@@ -918,7 +918,8 @@ body {
 
 .portfolio__container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: 1fr 1fr; /* two columns for left/right layout */
+    grid-auto-rows: auto;
     gap: 2rem;
 }
 
