@@ -392,14 +392,13 @@ window.addEventListener('load', function() {
     const loaderText = document.querySelector('.loader-text');
     const siteContent = document.querySelector('.site-content');
 
+    if (!preloader || !siteContent) return;
+
     const safetyTimeout = setTimeout(() => {
         dismissPreloader();
     }, 5000);
 
     setTimeout(() => {
-        loader.style.display = 'none';
-        loaderText.style.display = 'none';
-
         const logoReveal = document.createElement('img');
         logoReveal.src = 'img/logo.png';
         logoReveal.classList.add('logo-reveal');
@@ -408,8 +407,18 @@ window.addEventListener('load', function() {
         preloader.appendChild(logoReveal);
 
         logoReveal.onload = () => {
-            // Preload completato, avvia animazione
             requestAnimationFrame(() => {
+                if (loader) {
+                    loader.style.opacity = '0';
+                    loader.style.transform = 'scale(0.8)';
+                    loader.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+                }
+
+                if (loaderText) {
+                    loaderText.style.opacity = '0';
+                    loaderText.style.transition = 'opacity 0.35s ease';
+                }
+
                 logoReveal.classList.add('active');
 
                 setTimeout(() => {
@@ -424,7 +433,15 @@ window.addEventListener('load', function() {
             clearTimeout(safetyTimeout);
             dismissPreloader();
         };
-    }, 1500); 
+    }, 1200);
+
+    if (loader) {
+        loader.style.display = 'grid';
+    }
+
+    if (loaderText) {
+        loaderText.style.display = 'block';
+    }
 });
 
 function initializeThemeToggle() {

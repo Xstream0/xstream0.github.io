@@ -2409,11 +2409,10 @@ body {
 .preloader::before {
     content: '';
     position: absolute;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
     border-radius: 50%;
-    animation: pulse 3s ease-in-out infinite;
 }
 
 .preloader.fade-out {
@@ -2421,45 +2420,38 @@ body {
     pointer-events: none;
 }
 
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 0.5;
-    }
-    50% {
-        transform: scale(1.2);
-        opacity: 0.8;
-    }
-}
-
 .loader {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 40px;
+    width: 88px;
+    height: 88px;
+    margin-bottom: 28px;
     position: relative;
     z-index: 1;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.12);
+    border-top-color: rgba(255, 255, 255, 0.96);
+    border-right-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.18);
+    animation: spin-loader 0.9s linear infinite;
+}
+
+.loader::after {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-bottom-color: rgba(255, 255, 255, 0.7);
 }
 
 .loader svg {
-    width: 100%;
-    height: 100%;
-    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    display: none;
 }
 
-.loader circle {
-    fill: none;
-    stroke: url(#gradient-loader);
-    stroke-width: 5;
-    stroke-dasharray: 200;
-    stroke-dashoffset: 0;
-    transform-origin: center;
-    animation: dash 2s linear infinite;
-    stroke: rgba(255, 255, 255, 0.6);
-}
-
-@keyframes dash {
+@keyframes spin-loader {
     to {
-        stroke-dashoffset: -200;
+        transform: rotate(360deg);
     }
 }
 
